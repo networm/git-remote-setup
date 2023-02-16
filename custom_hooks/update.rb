@@ -37,10 +37,18 @@ def check_commit_data
       continue
     end
 
+    matched = false
+    error_message = ""
     $commit_rules.each do |commit_rule|
-      if !message.match(/#{commit_rule}/)
-        error "提交：'#{rev}' 信息格式不符合 '#{commit_rule}' - '#{message}'"
+      if message.match(/#{commit_rule}/)
+        matched = true
+      else
+        error_message += "提交：'#{rev}' 信息格式不符合 '#{commit_rule}' - '#{message}'\n"
       end
+    end
+
+    if !matched
+      error error_message
     end
   end
 end
