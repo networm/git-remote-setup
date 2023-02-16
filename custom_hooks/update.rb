@@ -34,7 +34,7 @@ def check_commit_data
     message = message.to_s.force_encoding("UTF-8").chomp
 
     if message.index("Merge") == 0 or message.index("Revert") == 0
-      continue
+      next
     end
 
     matched = false
